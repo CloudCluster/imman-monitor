@@ -7,7 +7,7 @@ java -jar imman-monitor.jar {DigitalOcean token}
 ```
 
 The monitor will pull cluster's statistic and restart the problematic node if any. You'll be notified by email about the problem. 
-To configure the email notifications and logs copy **ccio-monitor.logback.xml** file into **/opt** folder, and make sure all emails set correctly there.
+To configure the email notifications and logs copy [**ccio-monitor.logback.xml**](https://github.com/CloudCluster/imman-monitor/blob/master/src/main/opt/ccio-monitor-logback.xml) file into **/opt** folder, and make sure all emails set correctly there.
 
 If you set up ImMan Cluster manually, without the [ImMan Tools](https://github.com/CloudCluster/imman-tools), you can build the JSON file yourself, make sure it has the same name as your ImMan CLuster name, and following structure:
 
