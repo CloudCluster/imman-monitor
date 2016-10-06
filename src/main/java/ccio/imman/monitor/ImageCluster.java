@@ -2,8 +2,6 @@ package ccio.imman.monitor;
 
 import java.util.List;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 public class ImageCluster {
 	
 	private String clusterName;
@@ -18,6 +16,7 @@ public class ImageCluster {
 	private String s3Bucket;
 	private String secret;
 	private String ccioSubDomain;
+	private String doToken;
 	
 	public String getClusterName() {
 		return clusterName;
@@ -80,9 +79,6 @@ public class ImageCluster {
 		this.heights = heights;
 	}
 	public String getSecret() {
-		if(secret == null){
-			secret = RandomStringUtils.random(32, "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890");
-		}
 		return secret;
 	}
 	public void setSecret(String secret) {
@@ -93,5 +89,11 @@ public class ImageCluster {
 	}
 	public void setCcioSubDomain(String ccioSubDomain) {
 		this.ccioSubDomain = ccioSubDomain;
+	}
+	public String getDoToken() {
+		return doToken;
+	}
+	public void setDoToken(String doToken) {
+		this.doToken = doToken;
 	} 
 }
