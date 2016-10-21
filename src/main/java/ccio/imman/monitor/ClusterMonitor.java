@@ -27,7 +27,7 @@ public class ClusterMonitor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClusterMonitor.class);
 	private static final ScheduledExecutorService MONITOR_THREAD = Executors.newSingleThreadScheduledExecutor();
 	private static final ObjectMapper MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	private static final HashMap<Integer, LocalTime> LAST_RESTART = new HashMap<>();
+	private static final HashMap<Integer, Long> LAST_RESTART = new HashMap<>();
 	
 	public static void main(String[] args) {
 		LOGGER.warn("Starting CCIO Cluster Monitor");
@@ -69,12 +69,12 @@ public class ClusterMonitor {
 									ok++;
 								} catch (Exception ex) {
 									LOGGER.debug("######### RESTART 1 #########: ", ex.getMessage());
-									LocalTime lastReastart = LAST_RESTART.get(node.getDropletId());
-									if(lastReastart == null || lastReastart.plusMinutes(7).isBefore(LocalTime.now())){
+									Long lastReastart = LAST_RESTART.get(node.getDropletId());
+									if(lastReastart == null || lastReastart+(7*60*1000) < System.currentTimeMillis()){
 										LOGGER.debug("######### RESTART 2 #########");
 										try {
 											apiClient.powerCycleDroplet(node.getDropletId());
-											LAST_RESTART.put(node.getDropletId(), LocalTime.now());
+											LAST_RESTART.put(node.getDropletId(), System.currentTimeMillis());
 											nodesRestarted++;
 											LOGGER.warn("{} {} is restarted", node.getDropletName(), node.getPublicIp());
 										} catch (DigitalOceanException e) {
